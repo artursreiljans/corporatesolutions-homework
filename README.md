@@ -2,6 +2,7 @@ Installation
 ============
 
 1. Run `docker compose up --build`
+2. Run `docker compose exec php composer -d app install`
 
 Routes
 ------
