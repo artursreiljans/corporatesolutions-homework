@@ -22,6 +22,6 @@ final class VatCalculator
 
     public function getPriceWithVAT(int $price): int
     {
-        return (int) $price * (100 + $this->vat);
+        return (int) ($price * (100 + $this->vat) / 100);
     }
 }

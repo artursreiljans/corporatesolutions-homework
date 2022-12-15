@@ -21,10 +21,10 @@ final class ProductVatLoader implements EventSubscriberInterface
 
     public function getSubscribedEvents(): array
     {
-        return [Events::postLoad => '__invoke'];
+        return [Events::postLoad];
     }
 
-    public function __invoke(LifecycleEventArgs $args): void
+    public function postLoad(LifecycleEventArgs $args): void
     {
         $entity = $args->getObject();
 
