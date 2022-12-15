@@ -15,21 +15,34 @@ class ProductVersion
     #[ORM\Column, ORM\Id, ORM\GeneratedValue]
     public readonly int $id;
 
-    #[ORM\ManyToOne]
-    private Product $product;
+    public function __construct(
+        #[ORM\ManyToOne]
+        private Product $product,
 
-    #[ORM\Column]
-    private string $name;
+        #[ORM\Column]
+        private string $name,
 
-    #[ORM\Column]
-    private int $quantity;
+        #[ORM\Column]
+        private int $quantity,
 
-    #[ORM\Column]
-    private int $price;
+        #[ORM\Column]
+        private int $price,
 
-    #[ORM\Column]
-    private string $user;
+        #[ORM\Column]
+        private string $author,
 
-    #[ORM\Column]
-    private \DateTimeInterface $createdAt;
+        #[ORM\Column(type: 'datetime_immutable')]
+        private \DateTimeInterface $createdAt,
+    ) {}
+
+    public function getView(): array
+    {
+        return [
+            'name' => $this->name,
+            'quantity' => $this->quantity,
+            'price' => $this->price / 100,
+            'author' => $this->author,
+            'created_at' => $this->createdAt->format(\DATE_ATOM),
+        ];
+    }
 }

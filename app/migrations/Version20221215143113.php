@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20221215124447 extends AbstractMigration
+final class Version20221215143113 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -31,8 +31,9 @@ final class Version20221215124447 extends AbstractMigration
             "Migration can only be executed safely on '\Doctrine\DBAL\Platforms\PostgreSQL100Platform'."
         );
 
-        $this->addSql('CREATE TABLE product_version (id INT NOT NULL, product_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, quantity INT NOT NULL, price INT NOT NULL, "user" VARCHAR(255) NOT NULL, created_at VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE product_version (id INT NOT NULL, product_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, quantity INT NOT NULL, price INT NOT NULL, author VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX idx_6ec5c8734584665a ON product_version (product_id)');
+        $this->addSql('COMMENT ON COLUMN product_version.created_at IS \'(DC2Type:datetime_immutable)\'');
     }
 
     public function down(Schema $schema): void

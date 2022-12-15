@@ -28,6 +28,11 @@ final class AuditController extends AbstractController
         $data = $entityManager
             ->getRepository(ProductVersion::class)
             ->findBy([], ['id' => 'DESC'], $limit);
+
+        $data = \array_map(
+            fn(ProductVersion $version): array => $version->getView($vat),
+            $data,
+        );
         return new JsonResponse($data);
     }
 }
