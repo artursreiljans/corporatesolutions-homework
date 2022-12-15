@@ -25,14 +25,6 @@ class DashboardController extends AbstractDashboardController
          );
     }
 
-    public function configureActions(): Actions
-    {
-        return Actions::new()
-            ->setPermission(Action::NEW, 'ROLE_ADMIN')
-            ->setPermission(Action::EDIT, 'ROLE_ADMIN')
-            ->setPermission(Action::DELETE, 'ROLE_ADMIN');
-    }
-
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()->setTitle('App');
