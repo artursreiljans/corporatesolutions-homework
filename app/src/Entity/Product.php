@@ -29,6 +29,8 @@ class Product
     #[ORM\OneToMany('product', ProductVersion::class, ['persist'])]
     private Collection $versions;
 
+    public int $priceWithVat;
+
     public function __construct()
     {
         $this->versions = new ArrayCollection();

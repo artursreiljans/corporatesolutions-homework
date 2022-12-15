@@ -7,7 +7,6 @@ namespace App\Controller;
 use App\Entity\ProductVersion;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,12 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
 final class AuditController extends AbstractController
 {
     #[Route(path: '/audit', name: 'audit')]
-    public function index(
-        EntityManagerInterface $entityManager,
-
-        #[Autowire(value: '%vat%')]
-        float $vat,
-    ): JsonResponse {
+    public function index(EntityManagerInterface $entityManager): JsonResponse
+    {
         $limit = 10;
 
         $data = $entityManager
@@ -30,7 +25,7 @@ final class AuditController extends AbstractController
             ->findBy([], ['id' => 'DESC'], $limit);
 
         $data = \array_map(
-            fn(ProductVersion $version): array => $version->getView($vat),
+            fn(ProductVersion $version): array => $version->getView(),
             $data,
         );
         return new JsonResponse($data);
