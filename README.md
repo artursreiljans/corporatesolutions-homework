@@ -2,7 +2,12 @@ Installation
 ============
 
 1. Run `docker compose up --build`
-2. Open http://localhost:8098
+
+Routes
+------
+
+* http://localhost:8098/admin
+* http://localhost:8098/audit
 
 Users
 -----
