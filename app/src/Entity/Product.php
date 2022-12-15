@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Calculator\VatCalculator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -29,7 +30,7 @@ class Product
     #[ORM\OneToMany('product', ProductVersion::class, ['persist'])]
     private Collection $versions;
 
-    public int $priceWithVat;
+    public VatCalculator $vatCalculator;
 
     public function __construct()
     {
@@ -39,5 +40,10 @@ class Product
     public function addVersion(ProductVersion $version): void
     {
         $this->versions->add($version);
+    }
+
+    public function getPriceWithVat(): int
+    {
+        return $this->vatCalculator->getPriceWithVAT($this->price);
     }
 }
